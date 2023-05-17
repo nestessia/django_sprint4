@@ -9,7 +9,7 @@ from .forms import CommentForm, PostForm, ProfileForm
 from .models import Category, Comment, Post, User
 
 
-class IndexListView(ListView):
+class IndexList(ListView):
     model = Post
     template_name = 'blog/index.html'
     paginate_by = 10
@@ -25,7 +25,7 @@ class IndexListView(ListView):
                  pub_date__lte=timezone.now())
 
 
-class PostCreateView(LoginRequiredMixin, CreateView):
+class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = 'blog/create.html'
@@ -39,7 +39,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         return reverse('blog:profile', kwargs={'username': username})
 
 
-class PostDetailView(LoginRequiredMixin, DetailView):
+class PostDetail(LoginRequiredMixin, DetailView):
     model = Post
     template_name = 'blog/detail.html'
 
@@ -50,7 +50,7 @@ class PostDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-class PostUpdateView(LoginRequiredMixin, UpdateView):
+class PostUpdate(LoginRequiredMixin, UpdateView):
     model = Post
     form_class = PostForm
     template_name = 'blog/create.html'
@@ -73,7 +73,7 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
         return reverse('blog:profile', kwargs={'username': username})
 
 
-class PostDeleteView(LoginRequiredMixin, DeleteView):
+class PostDelete(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'blog/create.html'
 
@@ -97,7 +97,7 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
         return reverse('blog:profile', kwargs={'username': username})
 
 
-class CategoryListView(LoginRequiredMixin, ListView):
+class CategoryList(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'blog/category.html'
     paginate_by = 10
@@ -123,7 +123,7 @@ class CategoryListView(LoginRequiredMixin, ListView):
         return context
 
 
-class ProfileListView(ListView):
+class ProfileList(ListView):
     model = Post
     template_name = 'blog/profile.html'
     paginate_by = 10
@@ -145,7 +145,7 @@ class ProfileListView(ListView):
         return context
 
 
-class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
     model = User
     form_class = ProfileForm
     template_name = 'blog/user.html'
@@ -158,7 +158,7 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
         return reverse('blog:profile', kwargs={'username': username})
 
 
-class CommentAddView(LoginRequiredMixin, CreateView):
+class CommentAdd(LoginRequiredMixin, CreateView):
     post_obj = None
     model = Comment
     form_class = CommentForm
@@ -177,7 +177,7 @@ class CommentAddView(LoginRequiredMixin, CreateView):
         return reverse('blog:post_detail', kwargs={'pk': self.post_obj.pk})
 
 
-class CommentUpdateView(LoginRequiredMixin, UpdateView):
+class CommentUpdate(LoginRequiredMixin, UpdateView):
     model = Comment
     form_class = CommentForm
     pk_url_kwarg = "id"
@@ -197,7 +197,7 @@ class CommentUpdateView(LoginRequiredMixin, UpdateView):
         return reverse("blog:post_detail", kwargs={"pk": pk})
 
 
-class CommentDeleteView(LoginRequiredMixin, DeleteView):
+class CommentDelete(LoginRequiredMixin, DeleteView):
     model = Comment
     pk_url_kwarg = 'id'
     template_name = 'blog/comment.html'
