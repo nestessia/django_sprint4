@@ -10,9 +10,9 @@ urlpatterns = [
     path('', include('blog.urls', namespace='blog')),
     path('pages/', include('pages.urls', namespace='pages')),
     path('auth/registration/', CreateView.as_view(
-            template_name='registration/registration_form.html',
-            form_class=UserCreationForm,
-            success_url=reverse_lazy('blog:index')), name='registration',),
+        template_name='registration/registration_form.html',
+        form_class=UserCreationForm,
+        success_url=reverse_lazy('blog:index')), name='registration',),
     path('auth/', include('django.contrib.auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
