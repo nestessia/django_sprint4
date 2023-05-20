@@ -35,11 +35,11 @@ class PostCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        username = self.request.user
+        username = self.request.user.username
         return reverse('blog:profile', kwargs={'username': username})
 
 
-class PostDetail(LoginRequiredMixin, DetailView):
+class PostDetail(DetailView):
     model = Post
     template_name = 'blog/detail.html'
 
@@ -97,7 +97,7 @@ class PostDelete(LoginRequiredMixin, DeleteView):
         return reverse('blog:profile', kwargs={'username': username})
 
 
-class CategoryList(LoginRequiredMixin, ListView):
+class CategoryList(ListView):
     model = Post
     template_name = 'blog/category.html'
     paginate_by = 10
@@ -127,10 +127,13 @@ class ProfileList(ListView):
     model = Post
     template_name = 'blog/profile.html'
     paginate_by = 10
+    ordering = ('-pub_date',)
 
     def get_queryset(self):
         username = self.kwargs['username']
         self.author = get_object_or_404(User, username=username)
+        # Если оставлять только то, что под else, то тесты не проходят,
+        # Либо не понимаю замечания в ревью :(
         if self.author == self.request.user:
             queryset = Post.objects.filter(author=self.author)
         else:
