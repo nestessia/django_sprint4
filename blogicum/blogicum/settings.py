@@ -7,10 +7,10 @@ SECRET_KEY = 'django-insecure-eu7!+nc#2h0)e21muzbmuyxoe=81t!plu%x*^5-5_oxb&wh&#w
 
 DEBUG = True
 
-ALLOWED_HOSTS =  [
+ALLOWED_HOSTS = [
     'www.nestessia.pythonanywhere.com',
     'nestessia.pythonanywhere.com',
-] 
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
